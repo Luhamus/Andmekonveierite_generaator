@@ -1,36 +1,31 @@
 from pyfiglet import figlet_format
 from rich.console import Console
+from common import core as common
 
-import requests
+import sys
 
 
 def introduction():
     console = Console()
     ascii_art = figlet_format("Nifi")
     console.print(ascii_art, style="cyan")
-
-    print("Valisid Nifi Platformi!")
-
-
-
-def api_url_validness_check(url):
-    try:
-        response = requests.get(url)
-        response.raise_for_status()  
-        response.json() 
-        return True 
-    except (requests.exceptions.RequestException, ValueError) as e:
-        return False
-
-
+    print("Valisid Nifi Platformi!\n")
 
 def build_pipeline():
-    api_url = input("Palun sisesta andmete API URL: ").strip()
+    while True:
+        api_url = input("Palun sisesta andmete API URL: ").strip()
+        username = "placeholder"
+        passwd = "placeholder"
 
-    if (input("Kas API vajab ka autentimist?(Jah/Ei): ").strip().lower() == 'jah'):
-        print("TODO")
+        needs_auth = common.ask_binary_input(prompt="Kas API vajab ka kasutajaga autentimist?(jah/ei): ").strip().lower() == 'jah'
+        if needs_auth:
+            username=input("Sisesta kasutajanimi: ")
+            passwd=input("Sisesta parool: ")
 
-    if(api_url_validness_check(api_url)):
-        print("Good")
-    else:
-        print("Bad")
+        if common.is_app_url_correct(api_url,needs_auth,username,passwd):
+            break  # Exit loop if URL is correct
+        else:
+            choice = common.ask_binary_input(prompt="\nKas soovid URL-i (m)uuta URL-i või (v)äljuda?(m/v): ",valikud=["m","v"]).strip().lower()
+            if choice == 'v':
+                print("Väljun programmist.")
+                sys.exit()

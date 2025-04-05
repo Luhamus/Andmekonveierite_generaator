@@ -7,4 +7,4 @@ def introduction():
     ascii_art = figlet_format("Telegraf")
     console.print(ascii_art, style="cyan")
 
-    print("Valisid Telegraf Platformi!")
+    print("Valisid Telegraf Platformi!\n")

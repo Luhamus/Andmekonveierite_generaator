@@ -18,7 +18,7 @@ def main():
 
     platform = AVAILABLE_PLATFORMS.get(plat_choice)
     if not platform:
-        print("Ebaõnnestunud valik ...")
+        print("Ebaõnnestunud valik, sulgen rakenduse...")
         return
 
     name, module = platform
