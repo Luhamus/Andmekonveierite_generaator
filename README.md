@@ -1,2 +1,4 @@
-Ekstrakti jsonist väljad, anna numbrilistina ette - dict
-    user valib numbri --> ehitad protsessori.
+Next step: modify processor
+    - templates added: DONE
+    - Chose which one to use: IN PROGRESS
+        - and use it

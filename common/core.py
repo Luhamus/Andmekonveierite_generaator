@@ -27,7 +27,7 @@ def ask_digit_input(max_index):
             print(f" Number ei kuulu valikusse. Palun vali number vahemikus 0-{max_index}.")
 
 
-
+## Checks if api url is correct, if so then returns the json
 def is_app_url_correct(api_url, needs_auth, username,passwd):
     print("Teostan API kutset...\n")
     try:
@@ -38,7 +38,7 @@ def is_app_url_correct(api_url, needs_auth, username,passwd):
 
         response.raise_for_status() ## Check if staus code is 2xx
         data = response.json()
-#        print(json.dumps(data, indent=2))
+        #print(json.dumps(data, indent=2))
         return data, True
 
     except requests.exceptions.RequestException as e:
@@ -52,8 +52,11 @@ def is_app_url_correct(api_url, needs_auth, username,passwd):
         return None, False
 
 
-## Func todo - add list level support with porcessors etc
+## TODO - add list level support with porcessors etc
+## Asks the user json item to extract and returns it as dict item-value pair, where item is name and value json path
 def inspect_json_top_level(json_data):
+    path = ""
+
     while True:
         print(json.dumps(json_data, indent=2))
         print("\nVali json võti millest soovid väärtuse andmekonveieriga ekstrakteerida\n")
@@ -62,7 +65,7 @@ def inspect_json_top_level(json_data):
 
         for index, key in enumerate(keys):
             value = json_data[key]
-            value_type = type(value).__name__ ## Mis type json itemgiga tegu
+            value_type = type(value).__name__ ## näitab mis json itemi type'i 
             if isinstance(value, list):
                 suggestion = "SplitJson"
             else:
@@ -78,8 +81,9 @@ def inspect_json_top_level(json_data):
 
         if isinstance(selected_value, dict) or isinstance(selected_value,list):
             json_data = selected_value
+            path += "." + selected_key
             continue
         else:
             print(f"\nValitud võti: '{selected_key}':")
-            #print(json.dumps(selected_value, indent=2))
-            return selected_key
+            path += "." + selected_key
+            return {selected_key: path}

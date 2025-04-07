@@ -2,11 +2,11 @@
   "flowContents": {
     "identifier": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274",
     "instanceIdentifier": "5bb8e7b5-0194-1000-5e19-bee2ad8d9a6e",
-    "name": "open-meteo_data",
+    "name": "testingName",
     "comments": "",
     "position": {
-      "x": -432.0,
-      "y": -213.5
+      "x": -536.0,
+      "y": -328.0
     },
     "processGroups": [],
     "remoteProcessGroups": [],
@@ -28,7 +28,7 @@
         },
         "properties": {
           "Regular Expression": "(?s)(^.*$)",
-          "Replacement Value": "weather,city=\"Tartu\" Temperature=${temperature},Wind=${wind_speed}",
+          "Replacement Value": "energy,building=\"Delta\" kilowattHours=${energy_value}",
           "Evaluation Mode": "Entire text",
           "Text to Prepend": null,
           "Line-by-Line Evaluation Mode": "All",
@@ -126,8 +126,8 @@
         "name": "InvokeHTTP",
         "comments": "",
         "position": {
-          "x": -1424.0,
-          "y": -600.0
+          "x": -1416.0,
+          "y": -752.0
         },
         "type": "org.apache.nifi.processors.standard.InvokeHTTP",
         "bundle": {
@@ -147,7 +147,7 @@
           "Socket Read Timeout": "15 secs",
           "Socket Idle Connections": "5",
           "Request Body Enabled": "true",
-          "HTTP URL": "https://api.open-meteo.com/v1/forecast?latitude=58.38&longitude=26.72&current=temperature_2m,wind_speed_10m",
+          "HTTP URL": "https://delta.iot.cs.ut.ee/measurement/measurements?source=780&dateFrom=${now():toNumber():minus(86400000):format(\"yyyy-MM-dd\")}T00:00:00Z&dateTo=${now():toNumber():minus(86400000):format(\"yyyy-MM-dd\")}T23:59:59Z&pageSize=200&type=KogEN",
           "Request OAuth2 Access Token Provider": null,
           "Socket Idle Timeout": "5 mins",
           "Response Redirects Enabled": "True",
@@ -163,13 +163,14 @@
           "Request User-Agent": null,
           "Response Header Request Attributes Enabled": "false",
           "HTTP Method": "GET",
-          "Request Username": null,
+          "Request Username": "rasmus.luha",
           "Request Content-Type": "${mime.type}",
           "Response Body Attribute Name": null,
           "Request Digest Authentication Enabled": "false",
           "Request Multipart Form-Data Name": null,
           "Response Cache Size": "10MB",
-          "Response Body Ignored": "false"
+          "Response Body Ignored": "false",
+          "Replacement Value": "energy,building=\"Delta\" kilowattHours=${energy_value}"
         },
         "propertyDescriptors": {
           "Request Content-Encoding": {
@@ -419,7 +420,7 @@
           }
         },
         "style": {},
-        "schedulingPeriod": "5 sec",
+        "schedulingPeriod": "86400 sec",
         "schedulingStrategy": "TIMER_DRIVEN",
         "executionNode": "ALL",
         "penaltyDuration": "30 sec",
@@ -439,12 +440,73 @@
         "groupIdentifier": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274"
       },
       {
+        "identifier": "fb9a5b80-aa9a-3e1b-86f5-c17db5783812",
+        "instanceIdentifier": "0bd7b16d-0195-1000-32ad-5b4055f37b22",
+        "name": "SplitJson",
+        "comments": "",
+        "position": {
+          "x": -1184.0,
+          "y": -440.0
+        },
+        "type": "org.apache.nifi.processors.standard.SplitJson",
+        "bundle": {
+          "group": "org.apache.nifi",
+          "artifact": "nifi-standard-nar",
+          "version": "2.1.0"
+        },
+        "properties": {
+          "Max String Length": "20 MB",
+          "Null Value Representation": "empty string",
+          "JsonPath Expression": "$.measurements[*]"
+        },
+        "propertyDescriptors": {
+          "Max String Length": {
+            "name": "Max String Length",
+            "displayName": "Max String Length",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Null Value Representation": {
+            "name": "Null Value Representation",
+            "displayName": "Null Value Representation",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "JsonPath Expression": {
+            "name": "JsonPath Expression",
+            "displayName": "JsonPath Expression",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          }
+        },
+        "style": {},
+        "schedulingPeriod": "0 sec",
+        "schedulingStrategy": "TIMER_DRIVEN",
+        "executionNode": "ALL",
+        "penaltyDuration": "30 sec",
+        "yieldDuration": "1 sec",
+        "bulletinLevel": "WARN",
+        "runDurationMillis": 0,
+        "concurrentlySchedulableTaskCount": 1,
+        "autoTerminatedRelationships": [],
+        "scheduledState": "ENABLED",
+        "retryCount": 10,
+        "retriedRelationships": [],
+        "backoffMechanism": "PENALIZE_FLOWFILE",
+        "maxBackoffPeriod": "10 mins",
+        "componentType": "PROCESSOR",
+        "groupIdentifier": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274"
+      },
+      {
         "identifier": "b00e49a7-d25a-3d5a-8705-ef4c5e2919e7",
         "instanceIdentifier": "6802228d-1680-3d01-dcb3-83febf10560d",
         "name": "EvaluateJsonPath",
         "comments": "",
         "position": {
-          "x": -800.0,
+          "x": -648.0,
           "y": -608.0
         },
         "type": "org.apache.nifi.processors.standard.EvaluateJsonPath",
@@ -457,10 +519,9 @@
           "Destination": "flowfile-attribute",
           "Max String Length": "20 MB",
           "Return Type": "auto-detect",
-          "latitude": "$.latitude",
+          "energy_value": "$.KogEN.T.value",
           "Null Value Representation": "empty string",
-          "Path Not Found Behavior": "ignore",
-          "longitude": "$.longitude"
+          "Path Not Found Behavior": "ignore"
         },
         "propertyDescriptors": {
           "Destination": {
@@ -484,16 +545,9 @@
             "sensitive": false,
             "dynamic": false
           },
-          "latitude": {
-            "name": "latitude",
-            "displayName": "latitude",
-            "identifiesControllerService": false,
-            "sensitive": false,
-            "dynamic": true
-          },
-          "temperature": {
-            "name": "temperature",
-            "displayName": "temperature",
+          "energy_value": {
+            "name": "energy_value",
+            "displayName": "energy_value",
             "identifiesControllerService": false,
             "sensitive": false,
             "dynamic": true
@@ -505,26 +559,12 @@
             "sensitive": false,
             "dynamic": false
           },
-          "wind_speed": {
-            "name": "wind_speed",
-            "displayName": "wind_speed",
-            "identifiesControllerService": false,
-            "sensitive": false,
-            "dynamic": true
-          },
           "Path Not Found Behavior": {
             "name": "Path Not Found Behavior",
             "displayName": "Path Not Found Behavior",
             "identifiesControllerService": false,
             "sensitive": false,
             "dynamic": false
-          },
-          "longitude": {
-            "name": "longitude",
-            "displayName": "longitude",
-            "identifiesControllerService": false,
-            "sensitive": false,
-            "dynamic": true
           }
         },
         "style": {},
@@ -572,7 +612,7 @@
           "Socket Read Timeout": "15 secs",
           "Socket Idle Connections": "5",
           "Request Body Enabled": "true",
-          "HTTP URL": "http://influxdb:8086/write?db=nifi_weatherData",
+          "HTTP URL": "http://influxdb:8086/write?db=nifi_deltaEnergy",
           "Request OAuth2 Access Token Provider": null,
           "Socket Idle Timeout": "5 mins",
           "Response Redirects Enabled": "True",
@@ -954,16 +994,16 @@
         "groupIdentifier": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274"
       },
       {
-        "identifier": "e8cf7e04-f875-3774-8234-7c44ae4c0c66",
-        "instanceIdentifier": "7e0990fa-432b-36c9-e56f-c856d2d253b6",
+        "identifier": "2e2a9588-6e83-3fad-9e25-a7e4411f7cbb",
+        "instanceIdentifier": "0bd8e0f0-0195-1000-b5fa-59bff2ea7c05",
         "name": "",
         "source": {
-          "id": "ba013c53-d8f2-3718-b7dd-d935e8b1413f",
+          "id": "fb9a5b80-aa9a-3e1b-86f5-c17db5783812",
           "type": "PROCESSOR",
           "groupId": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274",
-          "name": "InvokeHTTP",
+          "name": "SplitJson",
           "comments": "",
-          "instanceIdentifier": "44bbe9ed-51fa-3d2b-2bff-e04fc0673ebd"
+          "instanceIdentifier": "0bd7b16d-0195-1000-32ad-5b4055f37b22"
         },
         "destination": {
           "id": "b00e49a7-d25a-3d5a-8705-ef4c5e2919e7",
@@ -976,7 +1016,43 @@
         "labelIndex": 0,
         "zIndex": 0,
         "selectedRelationships": [
-          "Response"
+          "split"
+        ],
+        "backPressureObjectThreshold": 10000,
+        "backPressureDataSizeThreshold": "1 GB",
+        "flowFileExpiration": "0 sec",
+        "prioritizers": [],
+        "bends": [],
+        "loadBalanceStrategy": "DO_NOT_LOAD_BALANCE",
+        "partitioningAttribute": "",
+        "loadBalanceCompression": "DO_NOT_COMPRESS",
+        "componentType": "CONNECTION",
+        "groupIdentifier": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274"
+      },
+      {
+        "identifier": "f21c16db-0f95-31a0-9bcc-fc2034a8e5ad",
+        "instanceIdentifier": "0bd93b2d-0195-1000-1cf6-b09aec356f70",
+        "name": "",
+        "source": {
+          "id": "fb9a5b80-aa9a-3e1b-86f5-c17db5783812",
+          "type": "PROCESSOR",
+          "groupId": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274",
+          "name": "SplitJson",
+          "comments": "",
+          "instanceIdentifier": "0bd7b16d-0195-1000-32ad-5b4055f37b22"
+        },
+        "destination": {
+          "id": "eaff6f84-649b-3677-9935-911028a86f0e",
+          "type": "OUTPUT_PORT",
+          "groupId": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274",
+          "name": "errors",
+          "instanceIdentifier": "c033503f-2cfe-354d-548c-7710831a646d"
+        },
+        "labelIndex": 0,
+        "zIndex": 0,
+        "selectedRelationships": [
+          "original",
+          "failure"
         ],
         "backPressureObjectThreshold": 10000,
         "backPressureDataSizeThreshold": "1 GB",
@@ -1125,6 +1201,42 @@
         "zIndex": 0,
         "selectedRelationships": [
           "matched"
+        ],
+        "backPressureObjectThreshold": 10000,
+        "backPressureDataSizeThreshold": "1 GB",
+        "flowFileExpiration": "0 sec",
+        "prioritizers": [],
+        "bends": [],
+        "loadBalanceStrategy": "DO_NOT_LOAD_BALANCE",
+        "partitioningAttribute": "",
+        "loadBalanceCompression": "DO_NOT_COMPRESS",
+        "componentType": "CONNECTION",
+        "groupIdentifier": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274"
+      },
+      {
+        "identifier": "e529f57e-174b-3adc-86ac-326b10703eef",
+        "instanceIdentifier": "0bd8a1cd-0195-1000-f564-5b19695e6b39",
+        "name": "",
+        "source": {
+          "id": "ba013c53-d8f2-3718-b7dd-d935e8b1413f",
+          "type": "PROCESSOR",
+          "groupId": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274",
+          "name": "InvokeHTTP",
+          "comments": "",
+          "instanceIdentifier": "44bbe9ed-51fa-3d2b-2bff-e04fc0673ebd"
+        },
+        "destination": {
+          "id": "fb9a5b80-aa9a-3e1b-86f5-c17db5783812",
+          "type": "PROCESSOR",
+          "groupId": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274",
+          "name": "SplitJson",
+          "comments": "",
+          "instanceIdentifier": "0bd7b16d-0195-1000-32ad-5b4055f37b22"
+        },
+        "labelIndex": 0,
+        "zIndex": 0,
+        "selectedRelationships": [
+          "Response"
         ],
         "backPressureObjectThreshold": 10000,
         "backPressureDataSizeThreshold": "1 GB",
