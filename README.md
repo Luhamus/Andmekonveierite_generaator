@@ -10,12 +10,13 @@ WIP
 
 
 ## Configuration info
-Can configure under config.py
-sample VAR-s are given
+- Can configure under config.py
+- sample VAR-s are given
 WIP
 
 
 ## Current Repo structure
+```
 |-- common
 |   `-- core.py
 |-- config.py
@@ -31,6 +32,7 @@ WIP
 |   `-- <Generated pipelines>
 |-- README.md
 `-- requirements.txt
+```
 
 
 ### Samples
