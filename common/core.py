@@ -87,3 +87,54 @@ def inspect_json_top_level(json_data):
             print(f"\nValitud võti: '{selected_key}':")
             path += "." + selected_key
             return {selected_key: path}
+
+
+
+
+
+###### Other option ##########
+
+def inspect_json_top_level_test(json_data, has_list=False):
+    path = ""
+
+    while True:
+        print(json.dumps(json_data, indent=2))
+        print("\nVali json võti või indeks millest soovid väärtuse andmekonveieriga ekstrakteerida\n")
+
+        if isinstance(json_data, dict):
+            keys = list(json_data.keys())
+            for index, key in enumerate(keys):
+                value = json_data[key]
+                value_type = type(value).__name__
+                suggestion = "SplitJson" if isinstance(value, list) else "EvaluateJsonPath"
+                print(f"  [{index}] {key} ({value_type}) → {suggestion}")
+
+            selected_index = ask_digit_input(len(keys) - 1)
+            selected_key = keys[selected_index]
+            selected_value = json_data[selected_key]
+            path += "." + selected_key
+
+        elif isinstance(json_data, list):
+            has_list = True
+            for index, item in enumerate(json_data):
+                item_type = type(item).__name__
+                print(f"  [{index}] [{item_type}]")
+
+            selected_index = ask_digit_input(len(json_data) - 1)
+            selected_value = json_data[selected_index]
+            path += f"[{selected_index}]"
+
+        else:
+            # Primitive value, nothing to dive into
+            print(f"\nLõppväärtus: {json_data}")
+            return {"value": path}
+
+
+
+        if isinstance(selected_value, (dict, list)):
+            json_data = selected_value
+        else:
+            #print(f"\nValitud väärtus: '{selected_value}'")
+            print(f"\nValitud väärtus: '{path}'")
+            return {"value": path}
+

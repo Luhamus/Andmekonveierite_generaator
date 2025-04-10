@@ -1,10 +1,14 @@
 from pyfiglet import figlet_format
 from rich.console import Console
 from common import core as common
+import config as config ## TODO - check syntax
+#from modules.nifi import nifi_utils as nifi_utils
+
 
 import sys
 import json
 import shutil
+import requests
 
 
 def introduction():
@@ -14,7 +18,6 @@ def introduction():
     print("Valisid Nifi Platformi!\n")
 
 
-## TODO
 def update_template(file_path, dot_path, new_key, new_value):
 
     # Step 2: Load the copied JSON
@@ -43,14 +46,19 @@ def update_template(file_path, dot_path, new_key, new_value):
         print("✅ Changes saved.")
 
 
-### Example Usage ###
-# copy_and_modify_json(
-#     "template.json",
-#     "pipeline_copy.json",
-#     "flowContents.processors[1].properties",
-#     "New Config Key",
-#     "New Config Value"
-# )
+
+
+def set_database_credentials(file_path,dot_path):
+    ## Update URL
+    update_template(file_path, dot_path, "HTTP URL", config.DB_URL)
+
+    ## Update username
+    update_template(file_path, dot_path, "username", config.DB_USER)
+
+    ## Update username
+    update_template(file_path, dot_path, "password", config.DB_PASS)
+
+
 
 
 
@@ -76,8 +84,8 @@ def get_data_values():
         if api_url_correct:
             while True:
 
-                chosen_json_values.update(common.inspect_json_top_level(json_data))
-                print("Oled hetkel valinud järgmised väärtused:", ", ".join(chosen_json_values))
+                chosen_json_values.update(common.inspect_json_top_level_test(json_data))
+                print("Oled hetkel valinud järgmised väärtused JSON lõppväärtused: ", ", ".join(chosen_json_values))
                 choose_another = common.ask_binary_input(prompt="\nKas soovid (v)alida veel mõne väärtuse või liikuda (e)dasi?(v/e): ",valikud=["v","e"]).strip().lower()
 
                 if choose_another == 'e':
@@ -88,17 +96,28 @@ def get_data_values():
                 print("Väljun programmist.")
                 sys.exit()
 
+                
 
+def update_template_with_json_list():
+        update_template(new_pipeline_path, "flowContents.processors[2].properties", key, "$"+value)
+
+
+## TODO - textReplace part -> fix templates
 def build_pipeline():
     data_values = get_data_values()
 
-    ## TODO
-    shutil.copy("modules/nifi/templates/basic_ETL.json", "pipelines/test_pipeline.json")
+    ## TODO - unhardcode
+    new_pipeline_path = "pipelines/test_pipeline.json"
+    shutil.copy("modules/nifi/templates/basic_ETL.json", new_pipeline_path)
 
-    ## TODO
-
+    ## TODO - make a function for different types ... etc
     for key, value in data_values.items() :
-        #print (key, value)
-        update_template("pipelines/test_pipeline.json", "flowContents.processors[2].properties", key, value)
+            update_template(new_pipeline_path, "flowContents.processors[2].properties", key, "$"+value)
 
+    set_database_credentials(new_pipeline_path, "flowContents.processors[3].properties")
 
+    print(f"✅✅✅ Valmis. Uus genereeritud andmekoveier asub siin: {new_pipeline_path}.")
+
+    ## TODO - not working
+    #nifi_utils.upload_nifi_exported_flow( nifi_host="https://127.0.0.1.nip.io", username=config.NIFI_USER, password=config.NIFI_PASS, json_file_path="pipelines/test_pipeline.json", verify_ssl=False)
+    

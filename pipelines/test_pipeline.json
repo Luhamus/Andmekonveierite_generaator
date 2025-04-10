@@ -461,7 +461,7 @@
           "Null Value Representation": "empty string",
           "Path Not Found Behavior": "ignore",
           "longitude": "$.longitude",
-          "temperature": ".current_weather.temperature"
+          "value": "$.measurements[0].KogEN.T.value"
         },
         "propertyDescriptors": {
           "Destination": {
@@ -595,7 +595,9 @@
           "Request Digest Authentication Enabled": "false",
           "Request Multipart Form-Data Name": null,
           "Response Cache Size": "10MB",
-          "Response Body Ignored": "false"
+          "Response Body Ignored": "false",
+          "username": "admin",
+          "password": "admin"
         },
         "propertyDescriptors": {
           "Request Content-Encoding": {
