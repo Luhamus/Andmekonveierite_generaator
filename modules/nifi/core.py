@@ -1,10 +1,11 @@
+## TODO - check syntax
+from common import core as common
+import config as config 
+from modules.nifi import nifi_utils as nifi_utils
+
+
 from pyfiglet import figlet_format
 from rich.console import Console
-from common import core as common
-import config as config ## TODO - check syntax
-#from modules.nifi import nifi_utils as nifi_utils
-
-
 import sys
 import json
 import shutil
@@ -105,19 +106,45 @@ def update_template_with_json_list():
 ## TODO - textReplace part -> fix templates
 def build_pipeline():
     data_values = get_data_values()
+    print(data_values)
+    
+    ## Check if splitJson template needed
+    needs_SplitJson = False
+    for el in data_values.values():
+        if '[' in el:
+            needs_SplitJson = True
 
-    ## TODO - unhardcode
-    new_pipeline_path = "pipelines/test_pipeline.json"
-    shutil.copy("modules/nifi/templates/basic_ETL.json", new_pipeline_path)
+    print(needs_SplitJson)
 
-    ## TODO - make a function for different types ... etc
+
+    ## Select template 
+    ## TODO - unhardcoded template usage
+    if needs_SplitJson:
+        template_name="splitJsonETL.json"
+    else:
+        template_name="basic_ETL.json"
+
+    new_pipeline_path = f"pipelines/{template_name}"
+    shutil.copy(f"modules/nifi/templates/{template_name}", new_pipeline_path)
+
+
+
+    ## Processor editing
     for key, value in data_values.items() :
             update_template(new_pipeline_path, "flowContents.processors[2].properties", key, "$"+value)
 
+
+
+    ## Database Setup
     set_database_credentials(new_pipeline_path, "flowContents.processors[3].properties")
 
-    print(f"✅✅✅ Valmis. Uus genereeritud andmekoveier asub siin: {new_pipeline_path}.")
 
-    ## TODO - not working
-    #nifi_utils.upload_nifi_exported_flow( nifi_host="https://127.0.0.1.nip.io", username=config.NIFI_USER, password=config.NIFI_PASS, json_file_path="pipelines/test_pipeline.json", verify_ssl=False)
+
+    ## Pipeline Deployment
+    if (config.NIFI_DEPLOY):
+        nifi_utils.upload_nifi_exported_flow( nifi_host="https://127.0.0.1.nip.io", username=config.NIFI_USER, password=config.NIFI_PASS, json_file_path="pipelines/test_pipeline.json", verify_ssl=False)
+    else:
+        print("TODO - ask if user wants deployment")
     
+
+    print(f"✅✅✅ Valmis. Uus genereeritud andmekoveier asub siin: {new_pipeline_path}.")

@@ -2,6 +2,8 @@
 NIFI_USER="lab08nifiuser"
 NIFI_PASS="tartunifi2023"
 
+NIFI_DEPLOY=False
+
 
 ## Database
 DB_URL="http://influxdb:8086/write?db=nifi_weatherData"
