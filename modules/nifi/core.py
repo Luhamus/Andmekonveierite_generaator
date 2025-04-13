@@ -100,9 +100,6 @@ def get_data_values():
 
                 
 
-def update_template_with_json_list():
-        update_template(new_pipeline_path, "flowContents.processors[2].properties", key, "$"+value)
-
 
 ## TODO - textReplace part -> fix templates
 
@@ -134,25 +131,40 @@ def build_pipeline():
 
 
     ### Processor editing
+    ## Measurements setup - TODO: hardcoded.
+    measurements_name = "test_measurementName, "
+
     if needs_SplitJson:
         ## SplitJson update
         split_json_path = "$"+re.sub(r'\[(.*?)\]', r'[*]', path_parts[0])
-
         update_template(new_pipeline_path, "flowContents.processors[3].properties", "JsonPath Expression", split_json_path)
+
+        ## EvaluateJsonPath processor setup
         for key, value in data_values.items() :
             path_parts = value.split(']')
             update_template(new_pipeline_path, "flowContents.processors[2].properties", key, "$"+path_parts[1])
+            measurements_name+=f"{key}={{{key}}}"
 
+        ## Database Setup
+        set_database_credentials(new_pipeline_path, "flowContents.processors[4].properties")
     else:
         ## EvaluateJsonPath processor setup
         for key, value in data_values.items() :
             update_template(new_pipeline_path, "flowContents.processors[2].properties", key, "$"+value)
+            measurements_name+=f"{key}={{{key}}}"
 
         ## Database Setup
         set_database_credentials(new_pipeline_path, "flowContents.processors[3].properties")
 
 
+    ##ReplaceText update
+    update_template(new_pipeline_path, "flowContents.processors[0].properties", "Replacement Value", measurements_name)
+
+
+
     print(f"✅✅✅ Valmis. Uus genereeritud andmekoveier asub siin: {new_pipeline_path}.")
+
+
 
     ## Pipeline Deployment
     if (config.NIFI_DEPLOY):
