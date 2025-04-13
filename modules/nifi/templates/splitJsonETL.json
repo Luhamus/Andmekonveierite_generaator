@@ -440,67 +440,6 @@
         "groupIdentifier": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274"
       },
       {
-        "identifier": "fb9a5b80-aa9a-3e1b-86f5-c17db5783812",
-        "instanceIdentifier": "0bd7b16d-0195-1000-32ad-5b4055f37b22",
-        "name": "SplitJson",
-        "comments": "",
-        "position": {
-          "x": -1184.0,
-          "y": -440.0
-        },
-        "type": "org.apache.nifi.processors.standard.SplitJson",
-        "bundle": {
-          "group": "org.apache.nifi",
-          "artifact": "nifi-standard-nar",
-          "version": "2.1.0"
-        },
-        "properties": {
-          "Max String Length": "20 MB",
-          "Null Value Representation": "empty string",
-          "JsonPath Expression": "$.measurements[*]"
-        },
-        "propertyDescriptors": {
-          "Max String Length": {
-            "name": "Max String Length",
-            "displayName": "Max String Length",
-            "identifiesControllerService": false,
-            "sensitive": false,
-            "dynamic": false
-          },
-          "Null Value Representation": {
-            "name": "Null Value Representation",
-            "displayName": "Null Value Representation",
-            "identifiesControllerService": false,
-            "sensitive": false,
-            "dynamic": false
-          },
-          "JsonPath Expression": {
-            "name": "JsonPath Expression",
-            "displayName": "JsonPath Expression",
-            "identifiesControllerService": false,
-            "sensitive": false,
-            "dynamic": false
-          }
-        },
-        "style": {},
-        "schedulingPeriod": "0 sec",
-        "schedulingStrategy": "TIMER_DRIVEN",
-        "executionNode": "ALL",
-        "penaltyDuration": "30 sec",
-        "yieldDuration": "1 sec",
-        "bulletinLevel": "WARN",
-        "runDurationMillis": 0,
-        "concurrentlySchedulableTaskCount": 1,
-        "autoTerminatedRelationships": [],
-        "scheduledState": "ENABLED",
-        "retryCount": 10,
-        "retriedRelationships": [],
-        "backoffMechanism": "PENALIZE_FLOWFILE",
-        "maxBackoffPeriod": "10 mins",
-        "componentType": "PROCESSOR",
-        "groupIdentifier": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274"
-      },
-      {
         "identifier": "b00e49a7-d25a-3d5a-8705-ef4c5e2919e7",
         "instanceIdentifier": "6802228d-1680-3d01-dcb3-83febf10560d",
         "name": "EvaluateJsonPath",
@@ -519,7 +458,6 @@
           "Destination": "flowfile-attribute",
           "Max String Length": "20 MB",
           "Return Type": "auto-detect",
-          "energy_value": "$.KogEN.T.value",
           "Null Value Representation": "empty string",
           "Path Not Found Behavior": "ignore"
         },
@@ -586,6 +524,67 @@
         "groupIdentifier": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274"
       },
       {
+        "identifier": "fb9a5b80-aa9a-3e1b-86f5-c17db5783812",
+        "instanceIdentifier": "0bd7b16d-0195-1000-32ad-5b4055f37b22",
+        "name": "SplitJson",
+        "comments": "",
+        "position": {
+          "x": -1184.0,
+          "y": -440.0
+        },
+        "type": "org.apache.nifi.processors.standard.SplitJson",
+        "bundle": {
+          "group": "org.apache.nifi",
+          "artifact": "nifi-standard-nar",
+          "version": "2.1.0"
+        },
+        "properties": {
+          "Max String Length": "20 MB",
+          "Null Value Representation": "empty string",
+          "JsonPath Expression": "Placeholder"
+        },
+        "propertyDescriptors": {
+          "Max String Length": {
+            "name": "Max String Length",
+            "displayName": "Max String Length",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Null Value Representation": {
+            "name": "Null Value Representation",
+            "displayName": "Null Value Representation",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "JsonPath Expression": {
+            "name": "JsonPath Expression",
+            "displayName": "JsonPath Expression",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          }
+        },
+        "style": {},
+        "schedulingPeriod": "0 sec",
+        "schedulingStrategy": "TIMER_DRIVEN",
+        "executionNode": "ALL",
+        "penaltyDuration": "30 sec",
+        "yieldDuration": "1 sec",
+        "bulletinLevel": "WARN",
+        "runDurationMillis": 0,
+        "concurrentlySchedulableTaskCount": 1,
+        "autoTerminatedRelationships": [],
+        "scheduledState": "ENABLED",
+        "retryCount": 10,
+        "retriedRelationships": [],
+        "backoffMechanism": "PENALIZE_FLOWFILE",
+        "maxBackoffPeriod": "10 mins",
+        "componentType": "PROCESSOR",
+        "groupIdentifier": "2ae4bcd4-1c30-34e2-8206-1a0b567f7274"
+      },
+      {
         "identifier": "5834e54d-4509-3fb8-b672-fb1f450ef408",
         "instanceIdentifier": "87c23d87-fa77-32d7-4a2b-d425cddba4c7",
         "name": "InvokeHTTP",
@@ -612,7 +611,7 @@
           "Socket Read Timeout": "15 secs",
           "Socket Idle Connections": "5",
           "Request Body Enabled": "true",
-          "HTTP URL": "http://influxdb:8086/write?db=nifi_deltaEnergy",
+          "HTTP URL": "Placeholder",
           "Request OAuth2 Access Token Provider": null,
           "Socket Idle Timeout": "5 mins",
           "Response Redirects Enabled": "True",

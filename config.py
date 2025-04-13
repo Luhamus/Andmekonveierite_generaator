@@ -2,6 +2,7 @@
 NIFI_USER="lab08nifiuser"
 NIFI_PASS="tartunifi2023"
 
+NIFI_HOST="https://127.0.0.1.nip.io"
 NIFI_DEPLOY=False
 
 

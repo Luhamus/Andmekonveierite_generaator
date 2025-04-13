@@ -572,7 +572,7 @@
           "Socket Read Timeout": "15 secs",
           "Socket Idle Connections": "5",
           "Request Body Enabled": "true",
-          "HTTP URL": "http://influxdb:8086/write?db=nifi_weatherData",
+          "HTTP URL": "Placeholder",
           "Request OAuth2 Access Token Provider": null,
           "Socket Idle Timeout": "5 mins",
           "Response Redirects Enabled": "True",
