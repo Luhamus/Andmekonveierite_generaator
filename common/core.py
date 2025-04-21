@@ -96,6 +96,7 @@ def inspect_json_top_level(json_data):
 
 def inspect_json_top_level_test(json_data, has_list=False):
     path = ""
+    last_key = "value" #Placeholder
 
     while True:
         print(json.dumps(json_data, indent=2))
@@ -113,6 +114,7 @@ def inspect_json_top_level_test(json_data, has_list=False):
             selected_key = keys[selected_index]
             selected_value = json_data[selected_key]
             path += "." + selected_key
+            last_key = selected_key
 
         elif isinstance(json_data, list):
             has_list = True
@@ -123,11 +125,12 @@ def inspect_json_top_level_test(json_data, has_list=False):
             selected_index = ask_digit_input(len(json_data) - 1)
             selected_value = json_data[selected_index]
             path += f"[{selected_index}]"
+            last_key = str(selected_index)
 
         else:
             # Primitive value, nothing to dive into
             print(f"\nLõppväärtus: {json_data}")
-            return {"value": path}
+            return {last_key: path}
 
 
 
@@ -136,5 +139,5 @@ def inspect_json_top_level_test(json_data, has_list=False):
         else:
             #print(f"\nValitud väärtus: '{selected_value}'")
             print(f"\nValitud väärtus: '{path}'")
-            return {"value": path}
+            return {last_key: path}
 

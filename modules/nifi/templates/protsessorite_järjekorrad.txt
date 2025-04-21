@@ -1,0 +1,18 @@
+basic_ETL.json  
+--------------
+0: ReplaceText
+1: InvokeHTTP in
+2: EvaluateJsonPath
+3: InvokeHTTP Out
+
+
+
+
+splitJsonETL.json
+-----------------
+
+0: ReplaceText
+1: InvokeHTTP in
+2: EvaluateJsonPath
+3: SplitJson
+3: InvokeHTTP Out
