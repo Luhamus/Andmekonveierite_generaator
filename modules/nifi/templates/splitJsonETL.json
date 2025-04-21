@@ -163,14 +163,13 @@
           "Request User-Agent": null,
           "Response Header Request Attributes Enabled": "false",
           "HTTP Method": "GET",
-          "Request Username": "rasmus.luha",
+          "Request Username": null
           "Request Content-Type": "${mime.type}",
           "Response Body Attribute Name": null,
           "Request Digest Authentication Enabled": "false",
           "Request Multipart Form-Data Name": null,
           "Response Cache Size": "10MB",
           "Response Body Ignored": "false",
-          "Replacement Value": "energy,building=\"Delta\" kilowattHours=${energy_value}"
         },
         "propertyDescriptors": {
           "Request Content-Encoding": {
