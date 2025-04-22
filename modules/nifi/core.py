@@ -136,9 +136,7 @@ def modify_all_processors(data_values, schedulingPeriod, new_pipeline_name, api_
     if needs_SplitJson:
         ## SplitJson update
         split_json_path = "$"+re.sub(r'\[(.*?)\]', r'[*]', path_parts[0])
-        print("Got here")
         update_template(new_pipeline_path, "flowContents.processors[3].properties", "JsonPath Expression", split_json_path)
-        print("Got also here")
 
         ## EvaluateJsonPath processor setup
         for key, value in data_values.items() :
@@ -168,9 +166,8 @@ def modify_all_processors(data_values, schedulingPeriod, new_pipeline_name, api_
 
     ## Add api credentials
     if api_username != "placeholder":
-        update_template(new_pipeline_path, "flowContents.processors[1]", "Request Username", api_username)
-        #update_template(new_pipeline_path, "flowContents.processors[1]", "Request Password", api_password)
-        #update_template(new_pipeline_path, "flowContents.processors[1]", "Request Password", base64.b64encode(api_password.encode()).decode())
+        update_template(new_pipeline_path, "flowContents.processors[1].properties", "Request Username", api_username)
+        update_template(new_pipeline_path, "flowContents.processors[1].properties", "Request Password", api_password)
 
 
 
