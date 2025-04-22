@@ -1,4 +1,4 @@
-INTERACTIVE_MODE=False
+INTERACTIVE_MODE=True
 
 ## Nifi
 NIFI_USER="lab08nifiuser"
@@ -26,7 +26,7 @@ DB_PASS="admin"
 ## Needed if Interactive mode turned off
 API_URL="https://api.open-meteo.com/v1/forecast?latitude=58.38&longitude=26.72&current_weather=true"
 API_FIELDS={'temperature': '.current_weather.temperature', 'windspeed': '.current_weather.windspeed'}
-API_URL_USERNAME="TODO"
-API_URL_PASSWORD="TODO"
+API_USERNAME="TODO"
+API_PASSWORD="TODO"
 PIPELINE_SCHEDULING_PERIOD="5 sec"
 PIPELINE_NAME="test_pipeline.json"

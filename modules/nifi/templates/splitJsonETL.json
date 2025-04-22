@@ -28,7 +28,6 @@
         },
         "properties": {
           "Regular Expression": "(?s)(^.*$)",
-          "Replacement Value": "energy,building=\"Delta\" kilowattHours=${energy_value}",
           "Evaluation Mode": "Entire text",
           "Text to Prepend": null,
           "Line-by-Line Evaluation Mode": "All",
@@ -163,13 +162,13 @@
           "Request User-Agent": null,
           "Response Header Request Attributes Enabled": "false",
           "HTTP Method": "GET",
-          "Request Username": null
+          "Request Username": "your.name",
           "Request Content-Type": "${mime.type}",
           "Response Body Attribute Name": null,
           "Request Digest Authentication Enabled": "false",
           "Request Multipart Form-Data Name": null,
           "Response Cache Size": "10MB",
-          "Response Body Ignored": "false",
+          "Response Body Ignored": "false"
         },
         "propertyDescriptors": {
           "Request Content-Encoding": {
@@ -540,7 +539,7 @@
         "properties": {
           "Max String Length": "20 MB",
           "Null Value Representation": "empty string",
-          "JsonPath Expression": "Placeholder"
+          "JsonPath Expression": "placeholder"
         },
         "propertyDescriptors": {
           "Max String Length": {
@@ -610,7 +609,7 @@
           "Socket Read Timeout": "15 secs",
           "Socket Idle Connections": "5",
           "Request Body Enabled": "true",
-          "HTTP URL": "Placeholder",
+          "HTTP URL": "placeholder",
           "Request OAuth2 Access Token Provider": null,
           "Socket Idle Timeout": "5 mins",
           "Response Redirects Enabled": "True",
