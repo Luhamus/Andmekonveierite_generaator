@@ -28,7 +28,7 @@
         },
         "properties": {
           "Regular Expression": "(?s)(^.*$)",
-          "Replacement Value": "weather,city=\"Tartu\" Temperature=${temperature},Wind=${wind_speed}",
+          "Replacement Value": "placeholder",
           "Evaluation Mode": "Entire text",
           "Text to Prepend": null,
           "Line-by-Line Evaluation Mode": "All",
@@ -147,7 +147,7 @@
           "Socket Read Timeout": "15 secs",
           "Socket Idle Connections": "5",
           "Request Body Enabled": "true",
-          "HTTP URL": "https://api.open-meteo.com/v1/forecast?latitude=58.38&longitude=26.72&current=temperature_2m,wind_speed_10m",
+          "HTTP URL": "placeholder",
           "Request OAuth2 Access Token Provider": null,
           "Socket Idle Timeout": "5 mins",
           "Response Redirects Enabled": "True",
@@ -457,10 +457,8 @@
           "Destination": "flowfile-attribute",
           "Max String Length": "20 MB",
           "Return Type": "auto-detect",
-          "latitude": "$.latitude",
           "Null Value Representation": "empty string",
-          "Path Not Found Behavior": "ignore",
-          "longitude": "$.longitude"
+          "Path Not Found Behavior": "ignore"
         },
         "propertyDescriptors": {
           "Destination": {

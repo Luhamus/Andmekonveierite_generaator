@@ -1,7 +1,7 @@
 ## TODO - check syntax
 from common import core as common
 import config as config 
-from modules.nifi import nifi_utils as nifi_utils
+from modules.nifi import nifi_utils
 
 
 from pyfiglet import figlet_format
@@ -195,7 +195,15 @@ def build_pipeline():
     modify_all_processors(data_values, schedulingPeriod, new_pipeline_name, api_url, api_username, api_password)
     print(f"✅✅✅ Valmis. Uus genereeritud andmekoveier nimega '{new_pipeline_name}' asub kaustas 'pipelines'.")
 
+
+
     ## Pipeline Deployment
     if (config.NIFI_DEPLOY):
-        nifi_utils.upload_nifi_exported_flow( nifi_host=config.NIFI_HOST, username=config.NIFI_USER, password=config.NIFI_PASS, json_file_path="pipelines/test_pipeline.json", verify_ssl=False)
-        print("Andmekonveier on deploytud - TODO")
+        token = nifi_utils.get_access_token()
+        nifi_utils.upload_nifi_pipeline(token, "pipelines/test_pipeline.json", "test_pipeline", username=config.NIFI_USER, password=config.NIFI_PASS, nifi_url=config.NIFI_HOST, position_x=0, position_y=0)
+    else:
+        choice = common.ask_binary_input(prompt="\nKas soovid genereeritud andmekonveieri nifi platvormile paigaldada?(jah/ei): ",valikud=["jah","ei"]).strip().lower()
+        if choice == "jah":
+            token = nifi_utils.get_access_token()
+            nifi_utils.upload_nifi_pipeline(token, "pipelines/test_pipeline.json", "test_pipeline", username=config.NIFI_USER, password=config.NIFI_PASS, nifi_url=config.NIFI_HOST, position_x=0, position_y=0)
+
