@@ -30,14 +30,14 @@ If you opt out the interactive mode you have to define needed variables in the c
 
 The following variables have to be defined if interactive mode is tured to `False`
 
-| Variable Name                 | Description                               | Example Value                                                                               |
-|-------------------------------|-------------------------------------------|---------------------------------------------------------------------------------------------|
-| API_URL                       | API url that returens JSON data           | https://api.open-meteo.com/v1/forecast?latitude=58.38&longitude=26.72&current_weather=true" |
-| API_FIELDS                    | Data fields for pipeline, with json paths | {'temperature': '.current_weather.temperature', 'windspeed': '.current_weather.windspeed'}  |
-| API_USERNAME                  | Api username, if required                 | Placeholder"                                                                                |
-| API_PASSWORD                  | Api username, if required                 | Placehoder"                                                                                 |
-| PIPELINE_SCHEDULING_PERIOD    | How often the pipeline should run         | 5 sec                                                                                       |
-| PIPELINE_NAME                 | Name of the pipeline                      | test_pipeline.json                                                                          |
+| Variable Name                 | Description                               | Example Value                                                                                 |
+|-------------------------------|-------------------------------------------|-----------------------------------------------------------------------------------------------|
+| API_URL                       | API url that returens JSON data           | `https://api.open-meteo.com/v1/forecast?latitude=58.38&longitude=26.72&current_weather=true"` |
+| API_FIELDS                    | Data fields for pipeline, with json paths | `{'temperature': '.current_weather.temperature', 'windspeed': '.current_weather.windspeed'}`  |
+| API_USERNAME                  | Api username, if required                 | `"Placeholder"`                                                                               |
+| API_PASSWORD                  | Api username, if required                 | `"Placeholder"`                                                                               |
+| PIPELINE_SCHEDULING_PERIOD    | How often the pipeline should run         | `"5 sec"`                                                                                     |
+| PIPELINE_NAME                 | Name of the pipeline                      | `"test_pipeline.json"`                                                                        |
 
 
 #### Database
