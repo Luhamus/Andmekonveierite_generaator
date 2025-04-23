@@ -130,8 +130,14 @@ def modify_all_processors(data_values, schedulingPeriod, new_pipeline_name, api_
 
 
 
-    ### Processor editing - TODO only from config file currently
-    measurements_name = config.NIFI_MEASUREMENT_NAME+" "
+    ### Processor editing
+
+    ## Measurements name defining
+    if config.INTERACTIVE_MODE:
+        measurements_name = str(input("Palun sisesta andmebaasi jaoks vajalik 'measurement' nimi (influxDB): "))
+    else:
+        measurements_name = config.NIFI_MEASUREMENT_NAME+" "
+
 
     if needs_SplitJson:
         ## SplitJson update

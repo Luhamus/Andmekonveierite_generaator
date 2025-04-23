@@ -1,13 +1,14 @@
-INTERACTIVE_MODE=False
+INTERACTIVE_MODE=True
 
 ## Nifi
-NIFI_USER="lab08nifiuser"
-NIFI_PASS="tartunifi2023"
-
 NIFI_HOST="https://127.0.0.1.nip.io"
 NIFI_DEPLOY=False
 
-NIFI_MEASUREMENT_NAME="test_measurementName"
+NIFI_USER="lab08nifiuser"
+NIFI_PASS="tartunifi2023"
+
+#NIFI_MEASUREMENT_NAME="test_measurementName"
+NIFI_MEASUREMENT_NAME=""
 
 
 ## Database
