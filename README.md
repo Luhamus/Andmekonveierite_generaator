@@ -10,20 +10,20 @@ WIP
 
 
 ## Configuration info
-Configuration variables are defined in `config.py`, where sample Variables are already given.
+Configuration variables are defined in `config.py`, where sample variables are also already defined.
 WIP
 
 ### Variables
 
 #### Nifi
 
-| Variable Name       | Description                                     | Example Value              | 
-|---------------------|-------------------------------------------------|----------------------------|-
-| `NIFI_HOST`         | Base URL of the Apache NiFi instance            | `https://127.0.0.1.nip.io` | 
-| `NIFI_USER`         | Username for authenticating in Nifi             | `nifi_username`            | 
-| `NIFI_PASS`         | Username for authenticating in Nifi             | `nifi_password`            | 
-| `NIFI_DEPLOY`       | Automatically delpoy pipeline to Nifi           | `True`                     | 
-| `INTERACTIVE_MODE`  | If False you can parse through api call data    | `True`                     | 
+| Variable Name       | Description                                     | Example Value           | 
+|---------------------|----------------------------------------------|----------------------------|
+| `NIFI_HOST`         | Base URL of the Apache NiFi instance         | `https://127.0.0.1.nip.io` | 
+| `NIFI_USER`         | Username for authenticating in Nifi          | `nifi_username`            | 
+| `NIFI_PASS`         | Username for authenticating in Nifi          | `nifi_password`            | 
+| `NIFI_DEPLOY`       | Automatically delpoy pipeline to Nifi        | `True`                     | 
+| `INTERACTIVE_MODE`  | If False you can parse through api call data | `True`                     | 
 
 In interactive mode you can manually give the API url, credentials and data fields for the pipeline from API response 
 If you opt out the interactive mode you have to define needed variables in the config.py file before using the tool.
@@ -43,11 +43,11 @@ The following variables have to be defined if interactive mode is tured to `Fals
 #### Database
 Database variales have to be filled out before using the tool as currently there is only influxDB support.
 
-| Variable Name       | Description                              | Example Value                                    | 
-|---------------------|------------------------------------------|--------------------------------------------------|
-| `DB_URL`            | Url to the influxDB for the pipeline     | `http://influxdb:8086/write?db=nifi_weatherData` | 
-| `DB_USER`           | Database usernmae                        | `admin`                                          | 
-| `DB_PASS`           | Database passwod                         | `admin`                                          | 
+| Variable Name       | Description                          | Example Value                                    | 
+|---------------------|--------------------------------------|--------------------------------------------------|
+| `DB_URL`            | Url to the influxDB for the pipeline | `http://influxdb:8086/write?db=nifi_weatherData` | 
+| `DB_USER`           | Database usernmae                    | `admin`                                          | 
+| `DB_PASS`           | Database passwod                     | `admin`                                          | 
 
 
 
