@@ -1,0 +1,26 @@
+# Telegraf Configuration
+[agent]
+  interval = "10s" # Fetch data every 10 seconds
+  debug = true
+
+# Input Plugin: HTTP
+[[inputs.http]]
+  urls =  [] #[ "https://api.open-meteo.com/v1/forecast?latitude=58.38&longitude=26.72&current_weather=true" ]
+  method = "GET"
+  timeout = #"5s"
+  headers = { Content-Type = "application/json" }
+  data_format = "json"
+  json_query =  #"current_weather"
+  fieldinclude = [] #["temperature", "windspeed"]
+  #tag_keys = ["temperature", "windspeed"]
+
+  # Measuremens for DB
+  name_override = "weather_metrics"
+
+
+# Output Plugin: InfluxDB
+[[outputs.influxdb]]
+  urls = [] #["http://influxdb:8086"]
+  database =  "placeholder" #"telegraf_weatherData"
+  username = "TODO"
+  password = "TODO"

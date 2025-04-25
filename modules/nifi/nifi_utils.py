@@ -1,5 +1,48 @@
-import requests
 import config 
+
+import requests
+import sys
+import json
+
+
+def update_template(file_path, dot_path, new_key, new_value):
+
+    # Step 2: Load the copied JSON
+    with open(file_path, "r") as f:
+        data = json.load(f)
+
+    # Step 3: Walk the path (e.g. 'flowContents.processors[0].properties')
+    keys = dot_path.split(".")
+    current = data
+
+    for key in keys:
+        if key.endswith("]"):  # Handle list index like processors[0]
+            list_key = key[:key.index("[")]
+            index = int(key[key.index("[") + 1 : key.index("]")])
+            current = current[list_key][index]
+        else:
+            current = current[key]
+
+    # Step 4: Add or update the key
+    current[new_key] = new_value
+    print(f"🛠 Added '{new_key}': '{new_value}' at path '{dot_path}'")
+
+    # Step 5: Save back the JSON
+    with open(file_path, "w") as f:
+        json.dump(data, f, indent=2)
+        print("✅ Changes saved.")
+
+def set_database_credentials(file_path,dot_path):
+    ## Update URL
+    update_template(file_path, dot_path, "HTTP URL", config.DB_URL)
+
+    ## Update username
+    update_template(file_path, dot_path, "username", config.DB_USER)
+
+    ## Update username
+    update_template(file_path, dot_path, "password", config.DB_PASS)
+
+
 
 
 

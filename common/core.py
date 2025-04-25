@@ -141,3 +141,38 @@ def inspect_json_top_level_test(json_data, has_list=False):
             print(f"\nValitud väärtus: '{path}'")
             return {last_key: path}
 
+
+def get_data_values():
+
+    chosen_json_values = {}
+
+    ##Getting API url and json values
+    while True:
+        api_url = input("Palun sisesta andmete API URL: ").strip()
+        username = "placeholder"
+        passwd = "placeholder"
+
+        needs_auth = ask_binary_input(prompt="Kas API vajab ka kasutajaga autentimist?(jah/ei): ").strip().lower() == 'jah'
+        if needs_auth:
+            username=input("Sisesta kasutajanimi: ")
+            passwd=input("Sisesta parool: ")
+
+        json_data, api_url_correct = is_app_url_correct(api_url,needs_auth,username,passwd)
+
+
+        ## TODO itemite eemaldamise v6malus
+        if api_url_correct:
+            while True:
+
+                chosen_json_values.update(inspect_json_top_level_test(json_data))
+                ## Testing
+                print("Oled hetkel valinud järgmised väärtused JSON lõppväärtused: ", ", ".join(chosen_json_values))
+                choose_another = ask_binary_input(prompt="\nKas soovid (v)alida veel mõne väärtuse või liikuda (e)dasi?(v/e): ",valikud=["v","e"]).strip().lower()
+
+                if choose_another == 'e':
+                    return chosen_json_values, api_url, username, passwd
+        else:
+            choice = ask_binary_input(prompt="\nKas soovid URL-i (m)uuta URL-i või (v)äljuda?(m/v): ",valikud=["m","v"]).strip().lower()
+            if choice == 'v':
+                print("Väljun programmist.")
+                sys.exit()

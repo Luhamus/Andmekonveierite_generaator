@@ -1,25 +1,20 @@
-INTERACTIVE_MODE=True
+INTERACTIVE_MODE=False
 
-## Nifi
+
+#### Nifi ####
+
 NIFI_HOST="https://127.0.0.1.nip.io"
 NIFI_DEPLOY=False
 
 NIFI_USER="lab08nifiuser"
 NIFI_PASS="tartunifi2023"
 
-#NIFI_MEASUREMENT_NAME="test_measurementName"
-NIFI_MEASUREMENT_NAME=""
-
+NIFI_MEASUREMENT_NAME="test_measurementName"
 
 ## Database
 DB_URL="http://influxdb:8086/write?db=nifi_weatherData"
 DB_USER="admin"
 DB_PASS="admin"
-
-
-
-###############################
-
 
 
 ## Needed if Interactive mode turned off
@@ -29,3 +24,7 @@ API_USERNAME="Placeholder"
 API_PASSWORD="Placehoder"
 PIPELINE_SCHEDULING_PERIOD="5 sec"
 PIPELINE_NAME="test_pipeline.json"
+
+
+
+#### Telegraf ####
