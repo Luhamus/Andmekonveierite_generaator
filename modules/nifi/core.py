@@ -103,7 +103,7 @@ def build_pipeline():
         api_url = config.API_URL
         data_values = config.API_FIELDS
         schedulingPeriod = config.PIPELINE_SCHEDULING_PERIOD
-        new_pipeline_name = config.PIPELINE_NAME
+        new_pipeline_name = config.PIPELINE_NAME+".json"
         api_username = config.API_USERNAME
         api_password = config.API_PASSWORD
 

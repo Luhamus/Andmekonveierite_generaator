@@ -23,7 +23,7 @@ API_FIELDS={'temperature': '.current_weather.temperature', 'windspeed': '.curren
 API_USERNAME="Placeholder"
 API_PASSWORD="Placehoder"
 PIPELINE_SCHEDULING_PERIOD="5 sec"
-PIPELINE_NAME="test_pipeline.json"
+PIPELINE_NAME="test_pipeline"
 
 
 

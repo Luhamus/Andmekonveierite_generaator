@@ -7,15 +7,15 @@
 [[inputs.http]]
   urls =  [] #[ "https://api.open-meteo.com/v1/forecast?latitude=58.38&longitude=26.72&current_weather=true" ]
   method = "GET"
-  timeout = #"5s"
+  timeout = "plcaeholder"  #"5s"
   headers = { Content-Type = "application/json" }
   data_format = "json"
-  json_query =  #"current_weather"
+  json_query = "plcaeholder"  #"current_weather"
   fieldinclude = [] #["temperature", "windspeed"]
   #tag_keys = ["temperature", "windspeed"]
 
   # Measuremens for DB
-  name_override = "weather_metrics"
+  name_override = "plcaeholder"  #"weather_metrics"
 
 
 # Output Plugin: InfluxDB
