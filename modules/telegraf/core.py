@@ -25,10 +25,12 @@ def introduction():
 ###########################
 
 
-def modify_template(new_pipeline_path, api_url):
-    #telegraf_utils.modify_output("templates/basic_ETL.toml", "urls", "testingIfWorks")
+def modify_template(new_pipeline_path, api_url, schedulingPeriod):
 
-    ## Api Url editing
+    ## Pipeline intervall
+    telegraf_utils.modify_agent(new_pipeline_path,"interval", schedulingPeriod)
+
+    ## API url 
     telegraf_utils.modify_input(new_pipeline_path,"urls", [api_url])
 
 
@@ -69,7 +71,7 @@ def build_pipeline():
     shutil.copy(f"modules/telegraf/templates/{template_name}", new_pipeline_path)
 
 
-    modify_template(new_pipeline_path, api_url)
+    modify_template(new_pipeline_path, api_url, schedulingPeriod)
     #telegraf.modify_output("templates/basic_ETL.toml", "urls", "testingIfWorks")
 
 

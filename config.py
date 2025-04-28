@@ -1,4 +1,5 @@
-INTERACTIVE_MODE=False
+INTERACTIVE_MODE=True
+#PLATFORM="Nifiaskdjas"
 
 
 #### Nifi ####
@@ -16,15 +17,18 @@ DB_URL="http://influxdb:8086/write?db=nifi_weatherData"
 DB_USER="admin"
 DB_PASS="admin"
 
+#### Telegraf ####
+
+#TBA
+
+
+
+#### Over all ####
 
 ## Needed if Interactive mode turned off
 API_URL="https://api.open-meteo.com/v1/forecast?latitude=58.38&longitude=26.72&current_weather=true"
 API_FIELDS={'temperature': '.current_weather.temperature', 'windspeed': '.current_weather.windspeed'}
 API_USERNAME="Placeholder"
 API_PASSWORD="Placehoder"
-PIPELINE_SCHEDULING_PERIOD="5 sec"
+PIPELINE_SCHEDULING_PERIOD="10 sec"
 PIPELINE_NAME="test_pipeline"
-
-
-
-#### Telegraf ####
