@@ -43,9 +43,9 @@ def modify_output(new_pipeline_path, key, value):
 
     if key in pluggin:
 
-        print(f"Before: {key} = {pluggin[key]}")
+        #print(f"Before: {key} = {pluggin[key]}")
         pluggin[key] = value
-        print(f"After:  {key} = {pluggin[key]}")
+        #print(f"After:  {key} = {pluggin[key]}")
 
 
     with open(new_pipeline_path, "w") as f:

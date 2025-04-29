@@ -34,7 +34,8 @@ def update_template(file_path, dot_path, new_key, new_value):
 
 def set_database_credentials(file_path,dot_path):
     ## Update URL
-    update_template(file_path, dot_path, "HTTP URL", config.DB_URL)
+    db_full_url=config.DB_URL+"/write?db="+config.DB_NAME
+    update_template(file_path, dot_path, "HTTP URL", db_full_url)
 
     ## Update username
     update_template(file_path, dot_path, "username", config.DB_USER)

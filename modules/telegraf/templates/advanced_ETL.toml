@@ -1,0 +1,39 @@
+[agent]
+  debug = true
+#  interval = "3600s" 
+
+
+#INPUT: fetching data from delta api
+[[inputs.http]]
+  name_override = "telegraafi_deltaEnergy"
+  urls = ["https://delta.iot.cs.ut.ee/measurement/measurements?source=780&dateFrom=2025-02-19T00:00:00Z&dateTo=2025-02-19T23:59:59Z&pageSize=200&type=KogEN"]
+  
+  method = "GET"
+  
+  # Authentication
+  username = "rasmus.luha"
+  password = 
+
+  # Response format
+  data_format = "json"
+
+  # Specify JSON field
+  json_query = "measurements"  
+
+  # Field for energy value from "measurements"
+  json_string_fields = ["KogEN.T.value"]
+
+  # Timestamp configuration - needed for the database
+  json_time_key = "time"
+  json_time_format = "2006-01-02T15:04:05Z"
+
+
+
+
+# OUTPUT: Write data to InfluxDB
+[[outputs.influxdb]]
+  urls = ["http://influxdb:8086"]
+  database = "telegraf_deltaEnergy"
+  username = "admin"
+  password = "admin"
+

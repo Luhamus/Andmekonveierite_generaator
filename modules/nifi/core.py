@@ -46,7 +46,7 @@ def modify_all_processors(data_values, schedulingPeriod, new_pipeline_name, api_
     if config.INTERACTIVE_MODE:
         measurements_name = str(input("Palun sisesta andmebaasi jaoks vajalik 'measurement' nimi (influxDB): "))
     else:
-        measurements_name = config.NIFI_MEASUREMENT_NAME+" "
+        measurements_name = config.MEASUREMENT_NAME+" "
 
 
     if needs_SplitJson:
@@ -102,7 +102,7 @@ def build_pipeline():
     else:
         api_url = config.API_URL
         data_values = config.API_FIELDS
-        schedulingPeriod = config.PIPELINE_SCHEDULING_PERIOD
+        schedulingPeriod = config.PIPELINE_SCHEDULING_PERIOD+"sec"
         new_pipeline_name = config.PIPELINE_NAME+".json"
         api_username = config.API_USERNAME
         api_password = config.API_PASSWORD
