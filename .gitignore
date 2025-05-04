@@ -1,4 +1,5 @@
 TODO.txt
 pipelines/*
 venv/
+generate_pipelines.py
 __pycache__/
