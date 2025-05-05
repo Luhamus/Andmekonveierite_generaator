@@ -15,7 +15,7 @@
   #tag_keys = ["temperature", "windspeed"]
 
   # Measuremens for DB
-  name_override = "plcaeholder"  #"weather_metrics"
+  name_override = "Placeholder"  #"weather_metrics"
 
 
 # Output Plugin: InfluxDB

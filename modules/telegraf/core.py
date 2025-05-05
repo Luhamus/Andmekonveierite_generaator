@@ -25,7 +25,7 @@ def introduction():
 ###########################
 
 
-def modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, measurement_name):
+def modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, measurement_name, api_username, api_password, template_name):
 
     ## Pipeline interval
     telegraf_utils.modify_agent(new_pipeline_path,"interval", schedulingPeriod)
@@ -36,15 +36,36 @@ def modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, m
     ### Pluggins
     fields=[]
     json_query = ""
-    for key, value in data_values.items():
-        fields.append(key)
 
-        parts = value.rsplit('.', 2)
-        json_query = '.'.join(parts[:-1])[1:] # Get the json path till last item (second last dot(.))
+    if template_name == "basic_ETL.toml":
 
-    telegraf_utils.modify_input(new_pipeline_path,"json_query", json_query)
-    telegraf_utils.modify_input(new_pipeline_path,"fieldinclude", fields)
+        for key, value in data_values.items():
+            fields.append(key)
 
+            parts = value.rsplit('.', 2)
+            json_query = '.'.join(parts[:-1])[1:] # Get the json path till last item (second last dot(.))
+
+
+        telegraf_utils.modify_input(new_pipeline_path,"json_query", json_query)
+        telegraf_utils.modify_input(new_pipeline_path,"fieldinclude", fields)
+
+    elif template_name == "advanced_ETL.toml":
+
+        for key, value in data_values.items():
+
+            parts = value.split(']', 1)
+            json_query = parts[0].split("[")[0][1:]
+            fields.append(parts[1][1:])
+
+
+
+        telegraf_utils.modify_input(new_pipeline_path,"json_query", json_query)
+        telegraf_utils.modify_input(new_pipeline_path,"json_string_fields", fields)
+
+
+
+
+    ## Measurement
     telegraf_utils.modify_input(new_pipeline_path,"name_override", measurement_name)
 
     ## Database
@@ -54,6 +75,13 @@ def modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, m
     telegraf_utils.modify_output(new_pipeline_path, "password", config.DB_PASS)
 
 
+    ## If authenctication needed
+    if api_username and api_username.lower() != "placeholder":
+        print("Added username ")
+        telegraf_utils.modify_input(new_pipeline_path,"username", api_username)
+        print("Added password")
+        telegraf_utils.modify_input(new_pipeline_path,"password", api_password)
+
 
 
 
@@ -62,8 +90,8 @@ def build_pipeline():
         data_values, api_url, api_username, api_password= common.get_data_values()
 
         print("\nKui tihti peaks andmekonveier jooksma? (sekundites)")
-        schedulingPeriod = str(common.ask_digit_input(86400))+ "sec"
-        measurement_name = str(input("Palun sisesta andmebaasi jaoks vajalik 'measurement' nimi (influxDB): "))
+        schedulingPeriod = str(common.ask_digit_input(86400))+ "s"
+        measurement_name = str(input("Palun sisesta andmebaasi (influxDB) jaoks vajalik 'measurement' nimi: "))
         new_pipeline_name=input("Mis saab andmekonveieri nimeks: ")+".toml"
 
     ## TODO
@@ -81,13 +109,17 @@ def build_pipeline():
 
     ### Select template 
     ##TODO
-    template_name="basic_ETL.toml"
+    #template_name="basic_ETL.toml"
+    if (api_username and api_username.lower() != "placeholder") and (api_password and api_password.lower() != "placeholder"):
+        template_name="advanced_ETL.toml"
+    else:
+        template_name="basic_ETL.toml"
 
     new_pipeline_path = f"pipelines/{new_pipeline_name}"
     shutil.copy(f"modules/telegraf/templates/{template_name}", new_pipeline_path)
 
 
-    modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, measurement_name)
+    modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, measurement_name, api_username, api_password, template_name)
 
 
 

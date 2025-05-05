@@ -5,7 +5,8 @@ import sys
 
 AVAILABLE_PLATFORMS = {
     "1": ("Nifi", nifi),
-    "2": ("Telegraf", telegraf)}
+    "2": ("Telegraf", telegraf)
+    }
 
 
 def list_platforms():
@@ -16,7 +17,7 @@ def list_platforms():
 
 def main():
 
-    ## Kontrolli kas platform andi käsureamuutujana
+    ## Kontrolli kas platform anti käsureamuutujana
     if len(sys.argv) >= 2:
         platform = sys.argv[1].lower()
         if platform not in ("telegraf", "nifi"):
