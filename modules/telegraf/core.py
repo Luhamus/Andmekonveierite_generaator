@@ -37,6 +37,7 @@ def modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, m
     fields=[]
     json_query = ""
 
+
     if template_name == "basic_ETL.toml":
 
         for key, value in data_values.items():
@@ -77,9 +78,7 @@ def modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, m
 
     ## If authenctication needed
     if api_username and api_username.lower() != "placeholder":
-        print("Added username ")
         telegraf_utils.modify_input(new_pipeline_path,"username", api_username)
-        print("Added password")
         telegraf_utils.modify_input(new_pipeline_path,"password", api_password)
 
 
@@ -122,9 +121,4 @@ def build_pipeline():
     modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, measurement_name, api_username, api_password, template_name)
 
 
-
-
-
-
-    print("end currently")
-    #print(f"✅✅✅ Valmis. Uus genereeritud andmekoveier nimega '{new_pipeline_name}' asub kaustas 'pipelines'.")
+    print(f"✅✅✅ Valmis. Uus genereeritud andmekoveier nimega '{new_pipeline_name}' asub kaustas 'pipelines'.")
