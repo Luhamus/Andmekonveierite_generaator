@@ -1,0 +1,18 @@
+[agent]
+interval = "10s"
+debug = true
+
+[[inputs.http]]
+  urls = [ ]
+  method = "GET"
+  timeout = "10s"
+  data_format = "json"
+  json_query = ""  # empty = use whole JSON
+  name_override = "placeholder"
+  fieldpass = []
+
+[[outputs.influxdb]]
+  urls = []
+  database = "Placeholder"
+  username = "admin"
+  password = "admin"

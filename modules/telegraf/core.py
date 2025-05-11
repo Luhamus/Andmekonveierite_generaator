@@ -10,6 +10,7 @@ import config
 
 import toml
 import shutil
+import sys
 
 
 
@@ -26,7 +27,6 @@ def introduction():
 
 
 def modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, measurement_name, api_username, api_password, template_name):
-
     ## Pipeline interval
     telegraf_utils.modify_agent(new_pipeline_path,"interval", schedulingPeriod)
 
@@ -39,32 +39,29 @@ def modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, m
 
 
     if template_name == "basic_ETL.toml":
-
         for key, value in data_values.items():
             fields.append(key)
-
             parts = value.rsplit('.', 2)
             json_query = '.'.join(parts[:-1])[1:] # Get the json path till last item (second last dot(.))
 
-
         telegraf_utils.modify_input(new_pipeline_path,"json_query", json_query)
         telegraf_utils.modify_input(new_pipeline_path,"fieldinclude", fields)
-
     elif template_name == "advanced_ETL.toml":
-
         for key, value in data_values.items():
-
             parts = value.split(']', 1)
             json_query = parts[0].split("[")[0][1:]
             fields.append(parts[1][1:])
 
-
-
         telegraf_utils.modify_input(new_pipeline_path,"json_query", json_query)
         telegraf_utils.modify_input(new_pipeline_path,"json_string_fields", fields)
-
-
-
+    elif template_name == "different_jsonPaths_ETL.toml":
+        for key, value in data_values.items():
+            fields.append(value[1:].replace(".","_"))
+        telegraf_utils.modify_input(new_pipeline_path, "fieldpass", fields)
+        #sys.exit(1)
+    else:
+        print("Malli valimisel tekkis probleem...")
+        sys.exit(1)
 
     ## Measurement
     telegraf_utils.modify_input(new_pipeline_path,"name_override", measurement_name)
@@ -80,8 +77,6 @@ def modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, m
     if api_username and api_username.lower() != "placeholder":
         telegraf_utils.modify_input(new_pipeline_path,"username", api_username)
         telegraf_utils.modify_input(new_pipeline_path,"password", api_password)
-
-
 
 
 def build_pipeline():
@@ -103,14 +98,22 @@ def build_pipeline():
         api_password = config.API_PASSWORD
         measurement_name = config.MEASUREMENT_NAME
 
-
-
-
+    
     ### Select template 
-    ##TODO
-    #template_name="basic_ETL.toml"
+
+    ## Check if multiple root json paths template should be used
+    prev=""
+    multpleJsonPaths=False
+    for el in data_values.values():
+        cur = el.split(".", 2)[1]
+        if cur != prev and prev != "":
+           multpleJsonPaths = True
+        prev = cur
+
     if (api_username and api_username.lower() != "placeholder") and (api_password and api_password.lower() != "placeholder"):
         template_name="advanced_ETL.toml"
+    elif multpleJsonPaths:
+        template_name="different_jsonPaths_ETL.toml"
     else:
         template_name="basic_ETL.toml"
 

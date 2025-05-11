@@ -44,7 +44,7 @@ def modify_all_processors(data_values, schedulingPeriod, new_pipeline_name, api_
 
     ## Measurements name defining
     if config.INTERACTIVE_MODE:
-        measurements_name = str(input("Palun sisesta andmebaasi jaoks vajalik 'measurement' nimi (influxDB): "))
+        measurements_name = str(input("Palun sisesta andmebaasi jaoks vajalik 'measurement' nimi (influxDB): "))+" "
     else:
         measurements_name = config.MEASUREMENT_NAME+" "
 
@@ -55,6 +55,7 @@ def modify_all_processors(data_values, schedulingPeriod, new_pipeline_name, api_
         nifi_utils.update_template(new_pipeline_path, "flowContents.processors[3].properties", "JsonPath Expression", split_json_path)
 
         ## EvaluateJsonPath processor setup
+        ## TODO
         for key, value in data_values.items() :
             path_parts = value.split(']')
             nifi_utils.update_template(new_pipeline_path, "flowContents.processors[2].properties", key, "$"+path_parts[1])
@@ -93,6 +94,7 @@ def build_pipeline():
 
     if config.INTERACTIVE_MODE:
         data_values, api_url, api_username, api_password= common.get_data_values()
+        print(data_values)
 
         print("\nKui tihti peaks andmekonveier jooksma? (sekundites)")
         schedulingPeriod = str(common.ask_digit_input(86400))+ "sec"
