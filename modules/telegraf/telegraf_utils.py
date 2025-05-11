@@ -1,6 +1,13 @@
 import toml
 
 def modify_input(new_pipeline_path, key, value):
+    """
+    new_pipeline_path: Uue konveieri faili asukoht 
+    key: plugginas muudetav võti
+    value: muudetava võtme väärtus
+
+    Muudab konfiguratsiooni faili 'inputs.http' plugginas etteantud väärtuse
+    """
     data = toml.load(new_pipeline_path)
     pluggin = data["inputs"]["http"][0]
 
@@ -18,6 +25,13 @@ def modify_input(new_pipeline_path, key, value):
 ##modify_input("templates/basic_ETL.toml", "test_pipers.toml, "urls", ["stillTesting"])
 
 def modify_agent(new_pipeline_path, key, value):
+    """
+    new_pipeline_path: Uue konveieri faili asukoht 
+    key: plugginas muudetav võti
+    value: muudetava võtme väärtus
+
+    Muudab konfiguratsiooni faili 'agent' plugginas etteantud väärtuse
+    """
     data = toml.load(new_pipeline_path)
     pluggin = data["agent"]
 
@@ -33,6 +47,13 @@ def modify_agent(new_pipeline_path, key, value):
 
 
 def modify_output(new_pipeline_path, key, value):
+    """
+    new_pipeline_path: Uue konveieri faili asukoht 
+    key: plugginas muudetav võti
+    value: muudetava võtme väärtus
+
+    Muudab konfiguratsiooni faili 'outputs.influxdb' plugginas etteantud väärtuse
+    """
     data = toml.load(new_pipeline_path)
     pluggin = data["outputs"]["influxdb"][0]
 

@@ -19,6 +19,18 @@ def introduction():
 
 
 def modify_all_processors(data_values, schedulingPeriod, new_pipeline_name, api_url, api_username, api_password):
+    """
+    data_values: valitud andmeväljad, mida konveier filtreerib
+    scedulingPeriod: kui tihti konveier jookseb
+    new_pipeline_name: uue konveieri nimi
+    api_url: andmete tõmbamise API url
+    api_username: Olemasolu korral API kasutaja nimi
+    api_parool: Olemasolu korral API kasutaja parool
+
+    Teeb mallis kõik vajalikud muudatused andmekonveieri valmimiseks
+    """
+
+
     ############### Choosing and modfyfing Template ##############
 
     ### Check if splitJson template needed
@@ -91,6 +103,9 @@ def modify_all_processors(data_values, schedulingPeriod, new_pipeline_name, api_
 
 
 def build_pipeline():
+    """
+    Ehitab andmekonveieri kokku ning paigaldab soovi korral ka platvormile
+    """
 
     if config.INTERACTIVE_MODE:
         data_values, api_url, api_username, api_password= common.get_data_values()

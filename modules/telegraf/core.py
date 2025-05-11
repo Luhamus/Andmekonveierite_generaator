@@ -27,6 +27,17 @@ def introduction():
 
 
 def modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, measurement_name, api_username, api_password, template_name):
+    """
+    data_values: valitud andmeväljad, mida konveier filtreerib
+    scedulingPeriod: kui tihti konveier jookseb
+    new_pipeline_name: uue konveieri nimi
+    api_url: andmete tõmbamise API url
+    api_username: Olemasolu korral API kasutaja nimi
+    api_parool: Olemasolu korral API kasutaja parool
+
+    Teeb mallis kõik vajalikud muudatused andmekonveieri valmimiseks
+    """
+
     ## Pipeline interval
     telegraf_utils.modify_agent(new_pipeline_path,"interval", schedulingPeriod)
 
@@ -80,6 +91,9 @@ def modify_template(new_pipeline_path, api_url, schedulingPeriod, data_values, m
 
 
 def build_pipeline():
+    """
+    Ehitab andmekonveieri kokku 
+    """
     if config.INTERACTIVE_MODE:
         data_values, api_url, api_username, api_password= common.get_data_values()
 

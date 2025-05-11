@@ -8,6 +8,15 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def update_template(file_path, dot_path, new_key, new_value):
+    """
+    Parameeterid:
+    file_path: malli asukoht
+    dot_path: väärtuse asuhot, mida soovitakse muuta mallis
+    new_key: võti mida soovitatakse soovitud asukohas muuta
+    new_value: väärtus, mis soovitud võtmele antakse
+
+    Uuendab etteantud väärtuste põhjal mallis võtme väärtuse.
+    """
 
     # Step 2: Load the copied JSON
     with open(file_path, "r") as f:
@@ -35,6 +44,14 @@ def update_template(file_path, dot_path, new_key, new_value):
         #print("✅ Changes saved.")
 
 def set_database_credentials(file_path,dot_path):
+    """
+    Parameeterid:
+    file_path: malli asukoht
+    dot_path: väärtuse asuhot, mida soovitakse muuta mallis
+
+    Uuendab andmebaasi autentimisväärtused
+    """
+
     ## Update URL
     db_full_url=config.DB_URL+"/write?db="+config.DB_NAME
     update_template(file_path, dot_path, "HTTP URL", db_full_url)
@@ -53,6 +70,9 @@ def set_database_credentials(file_path,dot_path):
 #                 -H "Content-Type: application/x-www-form-urlencoded" -d 'username=lab08nifiuser&password=tartunifi2023')
 
 def get_access_token():
+    """
+    Tagastab Nifi platvormi autentimiseks vajaliku andmekonveieri.
+    """
     token_resp = requests.post(
         f"{config.NIFI_HOST}/nifi-api/access/token",
         headers={"Content-Type": "application/x-www-form-urlencoded"},
@@ -70,6 +90,10 @@ def get_access_token():
 
 
 def upload_nifi_pipeline(token, pipeline_path, processorGroup_name, username=config.NIFI_USER, password=config.NIFI_PASS, nifi_url=config.NIFI_HOST, position_x=0, position_y=0, client_id = "unique-client-id-123"):
+    """
+    Paigaldab andmekonveieri nifi platvormile 
+    """
+
 
     with open(pipeline_path, "r") as json_file:
         files = {
