@@ -3,7 +3,9 @@ import config
 import requests
 import sys
 import json
+import urllib3
 
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def update_template(file_path, dot_path, new_key, new_value):
 
@@ -25,12 +27,12 @@ def update_template(file_path, dot_path, new_key, new_value):
 
     # Step 4: Add or update the key
     current[new_key] = new_value
-    print(f"🛠 Added '{new_key}': '{new_value}' at path '{dot_path}'")
+    #print(f"🛠 Added '{new_key}': '{new_value}' at path '{dot_path}'")
 
     # Step 5: Save back the JSON
     with open(file_path, "w") as f:
         json.dump(data, f, indent=2)
-        print("✅ Changes saved.")
+        #print("✅ Changes saved.")
 
 def set_database_credentials(file_path,dot_path):
     ## Update URL
@@ -87,4 +89,4 @@ def upload_nifi_pipeline(token, pipeline_path, processorGroup_name, username=con
         )
 
     upload_resp.raise_for_status()
-    print(f"✅ Uploaded process group '{processorGroup_name}' successfully!")
+    print(f"✅ Andmekonveier '{processorGroup_name}' on edukalt ka Nifi platvormile paigaldatud!")
