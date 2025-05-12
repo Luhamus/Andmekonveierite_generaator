@@ -1,12 +1,12 @@
 # Pipeline generator
-This is a pipeline generator that currently supports the following platforms: `Nifi`, `Telegraf`(TODO).
+This tool is a pipeline generator that currently supports the following platforms: `Nifi`, `Telegraf`.
+This was built as a part of my Bachelor's thesis.
 
 ## Usage
 - `source venv/bin/activate`
 - `pip install -r requirements.txt`
-- Setup sutff in `config.py` (database and nifi auth etc)
-- Then run `main.py`
-WIP
+- Setup sutff in `config.py`, for more info look at [Configuration info](#Configuration-info) 
+- Then run `python main.py`
 
 
 ## Configuration info

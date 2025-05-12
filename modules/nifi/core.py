@@ -1,4 +1,3 @@
-## TODO - check syntax
 from common import core as common
 import config
 from modules.nifi import nifi_utils
@@ -67,7 +66,6 @@ def modify_all_processors(data_values, schedulingPeriod, new_pipeline_name, api_
         nifi_utils.update_template(new_pipeline_path, "flowContents.processors[3].properties", "JsonPath Expression", split_json_path)
 
         ## EvaluateJsonPath processor setup
-        ## TODO
         for key, value in data_values.items() :
             path_parts = value.split(']')
             nifi_utils.update_template(new_pipeline_path, "flowContents.processors[2].properties", key, "$"+path_parts[1])

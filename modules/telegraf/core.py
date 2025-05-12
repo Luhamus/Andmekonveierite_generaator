@@ -102,7 +102,6 @@ def build_pipeline():
         measurement_name = str(input("Palun sisesta andmebaasi (influxDB) jaoks vajalik 'measurement' nimi: "))
         new_pipeline_name=input("Mis saab andmekonveieri nimeks: ")+".toml"
 
-    ## TODO
     else:
         api_url = config.API_URL
         data_values = config.API_FIELDS
