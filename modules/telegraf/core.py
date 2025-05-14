@@ -111,6 +111,15 @@ def build_pipeline():
         api_password = config.API_PASSWORD
         measurement_name = config.MEASUREMENT_NAME
 
+        ## Check that API URL is correct
+        needs_auth = False
+        if (api_username.lower() and api_username.lower() != "placeholder") and (api_password.lower() and api_password.lower() != "placeholder"):
+            needs_auth = True
+
+        _, api_url_correct = common.is_app_url_correct(api_url, needs_auth, api_username, api_password)
+        if not api_url_correct:
+            print("\nEtteantud API URL-i kutsel tekkis viga, sulgen rakenduse...")
+            sys.exit(1)
     
     ### Select template 
 

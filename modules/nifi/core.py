@@ -7,6 +7,7 @@ from rich.console import Console
 
 import shutil
 import re
+import sys
 
 
 def introduction():
@@ -121,6 +122,17 @@ def build_pipeline():
         new_pipeline_name = config.PIPELINE_NAME+".json"
         api_username = config.API_USERNAME
         api_password = config.API_PASSWORD
+
+
+        ## Check that API URL is correct
+        needs_auth = False
+        if (api_username.lower() and api_username.lower() != "placeholder") and (api_password.lower() and api_password.lower() != "placeholder"):
+            needs_auth = True
+
+        _, api_url_correct = common.is_app_url_correct(api_url, needs_auth, api_username, api_password)
+        if not api_url_correct:
+            print("\nEtteantud API URL-i kutsel tekkis viga, sulgen rakenduse...")
+            sys.exit(1)
 
     modify_all_processors(data_values, schedulingPeriod, new_pipeline_name, api_url, api_username, api_password)
     print(f"✅✅✅ Valmis. Uus genereeritud andmekoveier nimega '{new_pipeline_name}' asub kaustas 'pipelines'.")
