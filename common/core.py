@@ -55,7 +55,6 @@ def is_app_url_correct(api_url, needs_auth, username,passwd):
         return None, False
 
 
-## TODO - add list level support with porcessors etc
 ## Asks the user json item to extract and returns it as dict item-value pair, where item is name and value json path
 def inspect_json_top_level(json_data):
     """

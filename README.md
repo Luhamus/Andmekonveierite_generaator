@@ -14,17 +14,6 @@ Configuration variables are defined in `config.py`, where sample variables are a
 WIP
 
 ### Variables
-
-#### Nifi
-
-| Variable Name       | Description                                     | Example Value           | 
-|---------------------|----------------------------------------------|----------------------------|
-| `NIFI_HOST`         | Base URL of the Apache NiFi instance         | `https://127.0.0.1.nip.io` | 
-| `NIFI_USER`         | Username for authenticating in Nifi          | `nifi_username`            | 
-| `NIFI_PASS`         | Username for authenticating in Nifi          | `nifi_password`            | 
-| `NIFI_DEPLOY`       | Automatically delpoy pipeline to Nifi        | `True`                     | 
-| `INTERACTIVE_MODE`  | If False you can parse through api call data | `True`                     | 
-
 In interactive mode you can manually give the API url, credentials and data fields for the pipeline from API response 
 If you opt out the interactive mode you have to define needed variables in the config.py file before using the tool.
 
@@ -34,8 +23,8 @@ The following variables have to be defined if interactive mode is tured to `Fals
 |-------------------------------|-------------------------------------------|-----------------------------------------------------------------------------------------------|
 | API_URL                       | API url that returens JSON data           | `https://api.open-meteo.com/v1/forecast?latitude=58.38&longitude=26.72&current_weather=true"` |
 | API_FIELDS                    | Data fields for pipeline, with json paths | `{'temperature': '.current_weather.temperature', 'windspeed': '.current_weather.windspeed'}`  |
-| API_USERNAME                  | Api username, if required                 | `"Placeholder"`                                                                               |
-| API_PASSWORD                  | Api username, if required                 | `"Placeholder"`                                                                               |
+| API_USERNAME                  | Api username, if required by API          | `"Placeholder"`                                                                               |
+| API_PASSWORD                  | Api username, if required by API          | `"Placeholder"`                                                                               |
 | PIPELINE_SCHEDULING_PERIOD    | How often the pipeline should run         | `"5 sec"`                                                                                     |
 | PIPELINE_NAME                 | Name of the pipeline                      | `"test_pipeline.json"`                                                                        |
 
@@ -49,6 +38,17 @@ Database variales have to be filled out before using the tool as currently there
 | `DB_USER`           | Database usernmae                    | `admin`                                          | 
 | `DB_PASS`           | Database passwod                     | `admin`                                          | 
 
+
+#### Nifi
+Here Nifi Host, Username and Password are needed for deploying the pipeline to the Nifi Host. 
+
+| Variable Name       | Description                                     | Example Value           | 
+|---------------------|----------------------------------------------|----------------------------|
+| `NIFI_HOST`         | Base URL of the Apache NiFi instance         | `https://127.0.0.1.nip.io` | 
+| `NIFI_USER`         | Username for authenticating in Nifi          | `nifi_username`            | 
+| `NIFI_PASS`         | Username for authenticating in Nifi          | `nifi_password`            | 
+| `NIFI_DEPLOY`       | Automatically delpoy pipeline to Nifi        | `True`                     | 
+| `INTERACTIVE_MODE`  | If False you can parse through api call data | `True`                     | 
 
 
 ## Current Repo structure

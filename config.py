@@ -8,7 +8,7 @@ NIFI_HOST="https://127.0.0.1.nip.io"
 NIFI_DEPLOY=True
 
 NIFI_USER="nifi_user"
-NIFI_PASS="nifi_passwod"
+NIFI_PASS="nifi_pass"
 
 MEASUREMENT_NAME="measurement_name"
 
