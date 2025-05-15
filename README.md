@@ -11,7 +11,7 @@ This was built as a part of my Bachelor's thesis.
 
 ## Configuration info
 Configuration variables are defined in `config.py`, where sample variables are also already defined.
-WIP
+The tool supports interactive and noninteractive(scripting) modes.
 
 ### Variables
 In interactive mode you can manually give the API url, credentials and data fields for the pipeline from API response 
