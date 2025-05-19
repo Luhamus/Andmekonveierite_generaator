@@ -1,5 +1,6 @@
 TODO.txt
 pipelines/*
+!pipelines/.gitkeep
 venv/
 generate_pipelines.py
 __pycache__/
